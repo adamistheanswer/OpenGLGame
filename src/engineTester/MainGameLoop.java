@@ -26,17 +26,20 @@ public class MainGameLoop {
 		Loader loader = new Loader();
 		
 		
-		RawModel tree = OBJLoader.loadObjModel("tree", loader);
-		RawModel stall = OBJLoader.loadObjModel("stall", loader);
+		RawModel tree = OBJLoader.loadObjModel("lowPolyTree", loader);
+		RawModel fern = OBJLoader.loadObjModel("fern", loader);
+		RawModel grass = OBJLoader.loadObjModel("grassModel", loader);
 
-		TexturedModel treeTx = new TexturedModel(tree,new ModelTexture(loader.loadTexture("tree")));
-		TexturedModel stallTx = new TexturedModel(stall,new ModelTexture(loader.loadTexture("stallTexture")));
+		TexturedModel treeTx = new TexturedModel(tree,new ModelTexture(loader.loadTexture("lowPolyTree")));
+		TexturedModel fernTx = new TexturedModel(fern,new ModelTexture(loader.loadTexture("fern")));
+		TexturedModel grassTx = new TexturedModel(grass,new ModelTexture(loader.loadTexture("grassTexture")));
 		
 		List<Entity> entities = new ArrayList<Entity>();
 		Random random = new Random();
-		for(int i=0;i<500;i++){
-			entities.add(new Entity(treeTx, new Vector3f(random.nextFloat()*800 ,0,random.nextFloat() * 800 ),0,0,0,3));
-			entities.add(new Entity(stallTx, new Vector3f(random.nextFloat()*800 ,0,random.nextFloat() * 800 ),0,0,0,1));
+		for(int i=0;i<800;i++){
+			entities.add(new Entity(treeTx, new Vector3f(random.nextFloat()*800 ,0,random.nextFloat() * 800 ),0,0,0,0.5f));
+			entities.add(new Entity(fernTx, new Vector3f(random.nextFloat()*800 ,0,random.nextFloat() * 800 ),0,0,0,1));
+			entities.add(new Entity(grassTx, new Vector3f(random.nextFloat()*800 ,0,random.nextFloat() * 800 ),0,0,0,1));
 		}
 		
 		Light light = new Light(new Vector3f(20000,20000,2000),new Vector3f(1,1,1));
@@ -54,7 +57,7 @@ public class MainGameLoop {
 			camera.move();
 
 			renderer.processTerrain(terrain);
-			
+
 			for(Entity entity:entities){
 				renderer.processEntity(entity);
 			}
